@@ -22,6 +22,7 @@ export default function App() {
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
       setTask("");
+      console.log("Task added:", task);
     }
   };
 
