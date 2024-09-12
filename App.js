@@ -22,11 +22,16 @@ export default function App() {
       Keyboard.dismiss();
       setTaskItems([...taskItems, task]);
       setTask("");
-      console.log("Task added:", task);
     }
   };
 
-  const completeTask = (index) => {
+  const editTask = (index, newText) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy[index] = newText;
+    setTaskItems(itemsCopy);
+  };
+
+  const deleteTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy);
@@ -43,9 +48,12 @@ export default function App() {
           <Text style={styles.sectionTitle}>To Do List</Text>
           <View style={styles.items}>
             {taskItems.map((item, index) => (
-              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                <Task text={item} />
-              </TouchableOpacity>
+              <Task
+                key={index}
+                text={item}
+                onEditConfirm={(newText) => editTask(index, newText)}
+                onDelete={() => deleteTask(index)}
+              />
             ))}
           </View>
         </View>
